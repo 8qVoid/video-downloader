@@ -164,9 +164,14 @@ def download(job: Job) -> None:
             job.status = "ready"
             job.message = "Ready to save"
     except Exception as exc:
+        message = str(exc).removeprefix("ERROR: ")[:240] or "Download failed."
+        host = (urlparse(job.url).hostname or "").lower()
+        is_youtube = any(host == name or host.endswith("." + name) for name in ("youtu.be", "youtube.com", "youtube-nocookie.com"))
+        if is_youtube and "Sign in to confirm" in message:
+            message = "YouTube blocked this free server. Open the link on YouTube to check that the video still exists, then try another public video."
         with jobs_lock:
             job.status = "error"
-            job.message = str(exc).removeprefix("ERROR: ")[:240] or "Download failed."
+            job.message = message
         shutil.rmtree(job.folder, ignore_errors=True)
 
 
