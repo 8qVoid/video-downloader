@@ -6,6 +6,8 @@ A free browser based video downloader for individual public Instagram, YouTube, 
 
 This repository is ready for [Render](https://render.com/) using its free web service plan. The included `render.yaml` and `Dockerfile` install the server and video tools.
 
+[Deploy this repository to Render](https://render.com/deploy?repo=https://github.com/8qVoid/video-downloader)
+
 1. Create a free Render account with your GitHub account.
 2. In Render, choose **New → Blueprint**, connect this GitHub repository, and apply the `render.yaml` blueprint. Select the free plan if asked.
 3. Wait for the deploy to finish and open the `onrender.com` URL that Render gives you.
