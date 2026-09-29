@@ -12,7 +12,7 @@ This repository is ready for [Render](https://render.com/) using its free web se
 2. In Render, choose **New → Blueprint**, connect this GitHub repository, and apply the `render.yaml` blueprint. Select the free plan if asked.
 3. Wait for the deploy to finish and open the `onrender.com` URL that Render gives you.
 
-The website provides a link field, progress display, and a **Save video** button. It accepts one video at a time and limits files to 100 MB. It cannot use your browser's login cookies, so private or login gated videos may fail. The free Render service sleeps after 15 minutes of inactivity, and the first visit after that can take about a minute to start. Some sites may block requests from cloud servers. Render's free usage and bandwidth limits also apply.
+The website provides a link field, progress display, and a **Save video** button. It accepts one video at a time and limits files to 100 MB. Instagram and TikTok downloads were verified on the deployed service. YouTube currently returns a bot check from Render's server IP for the public sample tested, even with the embedded client retry. Other YouTube links may fail for the same reason. The service cannot use your browser's login cookies, so private or login gated videos may also fail. The free Render service sleeps after 15 minutes of inactivity, and the first visit after that can take about a minute to start. Render's free usage and bandwidth limits also apply.
 
 ## Run the website locally
 
