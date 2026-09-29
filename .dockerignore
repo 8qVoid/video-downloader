@@ -1,0 +1,8 @@
+.git
+.venv
+__pycache__
+*.pyc
+*.part
+*.ytdl
+*.mp4
+*.mkv
