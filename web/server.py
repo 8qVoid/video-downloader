@@ -135,8 +135,20 @@ def download(job: Job) -> None:
             "fragment_retries": 2,
             "socket_timeout": 20,
         }
-        with YoutubeDL(options) as ydl:
-            info = ydl.extract_info(job.url, download=True)
+        try:
+            with YoutubeDL(options) as ydl:
+                info = ydl.extract_info(job.url, download=True)
+        except Exception as first_error:
+            host = (urlparse(job.url).hostname or "").lower()
+            is_youtube = any(host == name or host.endswith("." + name) for name in ("youtu.be", "youtube.com", "youtube-nocookie.com"))
+            if not is_youtube or "Sign in to confirm" not in str(first_error):
+                raise
+            with jobs_lock:
+                job.message = "Trying another YouTube connection…"
+            fallback = dict(options)
+            fallback["extractor_args"] = {"youtube": {"player_client": ["web_embedded"], "player_skip": ["webpage"]}}
+            with YoutubeDL(fallback) as ydl:
+                info = ydl.extract_info(job.url, download=True)
 
         files = [p for p in job.folder.iterdir() if p.is_file() and not p.name.endswith((".part", ".ytdl"))]
         if not files:
